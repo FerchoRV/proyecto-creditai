@@ -39,6 +39,7 @@ def client():
     # Cleanup users created in this test session by unique emails is enough;
     # also wipe table for deterministic runs inside shared DB.
     with engine.begin() as conn:
+        conn.execute(text("DELETE FROM timeline_events"))
         conn.execute(text("DELETE FROM invitaciones"))
         conn.execute(text("DELETE FROM solicitudes"))
         conn.execute(text("DELETE FROM users"))

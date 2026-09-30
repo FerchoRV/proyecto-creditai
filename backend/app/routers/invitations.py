@@ -4,14 +4,12 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session, joinedload
 
-from app.core.deps import get_current_user, require_asesor
+from app.core.deps import require_asesor
 from app.database import get_db
-from app.models import Invitacion, InvitacionEstado, Solicitud, SolicitudEstado, User
-from app.models.user import UserRole
+from app.models import Invitacion, InvitacionEstado, Solicitud, SolicitudEstado, TimelineEvent, User
 from app.schemas.invitations import (
     InvitationCreateRequest,
     InvitationPublic,
-    SolicitudPublic,
 )
 from app.services.invitations import find_cliente_match
 
@@ -53,6 +51,16 @@ def create_invitation(
     db.add(solicitud)
     db.flush()
 
+    db.add(
+        TimelineEvent(
+            solicitud_id=solicitud.id,
+            from_state=None,
+            to_state=SolicitudEstado.recibido,
+            actor_id=asesor.id,
+            nota="Solicitud creada",
+        )
+    )
+
     invitacion = Invitacion(
         asesor_id=asesor.id,
         solicitud_id=solicitud.id,
@@ -87,25 +95,3 @@ def list_invitations(
         .order_by(Invitacion.created_at.desc())
     ).unique().all()
     return [InvitationPublic.model_validate(row) for row in rows]
-
-
-@router.get("/api/v1/solicitudes", response_model=list[SolicitudPublic])
-def list_solicitudes(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
-) -> list[SolicitudPublic]:
-    if current_user.rol == UserRole.asesor:
-        rows = db.scalars(
-            select(Solicitud)
-            .where(Solicitud.asesor_id == current_user.id)
-            .order_by(Solicitud.created_at.desc())
-        ).all()
-    elif current_user.rol == UserRole.cliente:
-        rows = db.scalars(
-            select(Solicitud)
-            .where(Solicitud.cliente_id == current_user.id)
-            .order_by(Solicitud.created_at.desc())
-        ).all()
-    else:
-        rows = []
-    return [SolicitudPublic.model_validate(row) for row in rows]

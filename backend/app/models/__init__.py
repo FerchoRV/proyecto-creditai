@@ -5,6 +5,7 @@ from app.models.solicitud import (
     Solicitud,
     SolicitudEstado,
 )
+from app.models.timeline import TimelineEvent
 
 __all__ = [
     "User",
@@ -15,4 +16,5 @@ __all__ = [
     "SolicitudEstado",
     "Invitacion",
     "InvitacionEstado",
+    "TimelineEvent",
 ]
