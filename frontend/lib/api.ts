@@ -53,6 +53,21 @@ export type Invitation = {
   solicitud: Solicitud;
 };
 
+export type TimelineEvent = {
+  id: number;
+  solicitud_id: number;
+  from_state: SolicitudEstado | null;
+  to_state: SolicitudEstado;
+  actor_id: number;
+  nota: string | null;
+  created_at: string;
+};
+
+export type SolicitudDetail = Solicitud & {
+  timeline: TimelineEvent[];
+  transiciones_disponibles: SolicitudEstado[];
+};
+
 export class ApiError extends Error {
   status: number;
 

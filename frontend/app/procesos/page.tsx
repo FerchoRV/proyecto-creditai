@@ -161,8 +161,10 @@ export default function ProcesosPage() {
                           .join(" ") ||
                         "Sin destino"}
                     </strong>
-                    <span className="muted">
+                  <span className="muted">
                       Solicitud #{inv.solicitud_id} · {inv.solicitud.estado}
+                      {" · "}
+                      <Link href={`/procesos/${inv.solicitud_id}`}>ver timeline</Link>
                     </span>
                   </div>
                   <span className={`pill ${inv.estado}`}>{inv.estado}</span>
@@ -183,7 +185,9 @@ export default function ProcesosPage() {
           {solicitudes.map((s) => (
             <li key={s.id}>
               <div>
-                <strong>Solicitud #{s.id}</strong>
+                <strong>
+                  <Link href={`/procesos/${s.id}`}>Solicitud #{s.id}</Link>
+                </strong>
                 <span className="muted">
                   Asesor #{s.asesor_id}
                   {s.cliente_id ? ` · Cliente #${s.cliente_id}` : " · sin cliente"}

@@ -2,12 +2,16 @@ from __future__ import annotations
 
 import enum
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import DateTime, Enum, ForeignKey, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
 from app.models.user import TipoIdentificacion
+
+if TYPE_CHECKING:
+    from app.models.timeline import TimelineEvent
 
 
 class SolicitudEstado(str, enum.Enum):
@@ -52,6 +56,10 @@ class Solicitud(Base):
     invitacion: Mapped[Invitacion | None] = relationship(
         back_populates="solicitud",
         uselist=False,
+    )
+    timeline_events: Mapped[list[TimelineEvent]] = relationship(
+        back_populates="solicitud",
+        order_by="TimelineEvent.created_at",
     )
 
 
