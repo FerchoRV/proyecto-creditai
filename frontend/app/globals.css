@@ -245,8 +245,36 @@ button.btn-primary:hover {
 }
 
 .form-error {
-  margin: 0;
+  margin: 0.75rem 0 0;
   color: var(--danger);
+}
+
+.form-ok {
+  margin: 0.75rem 0 0;
+  color: var(--ok);
+}
+
+.section-title {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--danger) 55%, transparent);
+  padding: 0.7rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--danger);
+  background: transparent;
+}
+
+.btn-danger:hover {
+  background: color-mix(in srgb, var(--danger) 15%, transparent);
 }
 
 .form-footer {
