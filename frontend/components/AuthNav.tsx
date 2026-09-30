@@ -25,6 +25,7 @@ export function AuthNav() {
     <nav className="auth-nav" aria-label="Cuenta">
       {user ? (
         <>
+          <Link href="/procesos">Procesos</Link>
           <Link href="/cuenta">{user.nombre}</Link>
           <button type="button" className="linkish" onClick={logout}>
             Salir

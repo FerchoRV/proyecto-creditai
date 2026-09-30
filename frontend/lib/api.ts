@@ -24,6 +24,35 @@ export type AuthResponse = {
   user: User;
 };
 
+export type SolicitudEstado =
+  | "recibido"
+  | "en_estudio"
+  | "aprobado"
+  | "rechazado";
+
+export type InvitacionEstado = "pendiente" | "vinculada";
+
+export type Solicitud = {
+  id: number;
+  asesor_id: number;
+  cliente_id: number | null;
+  estado: SolicitudEstado;
+  created_at: string;
+  updated_at: string;
+};
+
+export type Invitation = {
+  id: number;
+  asesor_id: number;
+  solicitud_id: number;
+  correo_objetivo: string | null;
+  tipo_identificacion: TipoIdentificacion | null;
+  numero_identificacion: string | null;
+  estado: InvitacionEstado;
+  created_at: string;
+  solicitud: Solicitud;
+};
+
 export class ApiError extends Error {
   status: number;
 
