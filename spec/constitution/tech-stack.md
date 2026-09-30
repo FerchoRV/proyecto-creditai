@@ -21,10 +21,22 @@
 
 ## Comandos
 
-- `docker compose up --build` — arranca frontend, backend y Postgres.
-- `docker compose exec backend pytest` — tests del backend.
-- `docker compose exec backend alembic upgrade head` — migraciones.
-- Comandos de lint/build concretos se fijan al crear el esqueleto del repo.
+- `cp .env.example .env` — crea variables locales (no se versionan).
+- `docker compose up --build` — construye imágenes y arranca frontend, backend y Postgres (modo build, sin hot reload).
+- `docker compose up --build -d` — lo mismo en segundo plano.
+- `docker compose down` — detiene los contenedores.
+- `docker compose down -v` — detiene y borra el volumen de Postgres.
+- `curl http://localhost:8000/health` — health del API.
+- `curl http://localhost:8000/health/db` — comprueba conexión a Postgres.
+- `docker compose exec backend pytest` — tests del backend (cuando existan).
+- `docker compose exec backend alembic upgrade head` — migraciones (cuando existan).
+
+## Contenedores (modo build)
+
+- Sin volúmenes de código ni hot reload: cada cambio de app requiere `docker compose up --build`.
+- `NEXT_PUBLIC_API_URL` se inyecta en **build** del frontend (arg de Compose); el navegador habla a `localhost:8000`, no a `backend`.
+- Persistencia solo en el volumen `pgdata` del servicio `db`.
+- Postgres en el host por defecto en el puerto **5433** (`POSTGRES_PORT`) para evitar choque con un Postgres local en 5432; entre contenedores sigue siendo `db:5432`.
 
 ## Modelo de datos / dominio
 
