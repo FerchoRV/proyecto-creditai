@@ -1,12 +1,14 @@
 from __future__ import annotations
 
-import os
 from typing import Any
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import create_engine, text
+from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
+
+from app.database import engine
+from app.routers import auth
 
 app = FastAPI(title="CreditAI API", version="0.1.0")
 
@@ -18,12 +20,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-def get_database_url() -> str:
-    return os.getenv(
-        "DATABASE_URL",
-        "postgresql+psycopg2://creditai:creditai@db:5432/creditai",
-    )
+app.include_router(auth.router)
 
 
 @app.get("/health")
@@ -33,16 +30,16 @@ def health() -> dict[str, str]:
 
 @app.get("/health/db")
 def health_db() -> dict[str, Any]:
-    url = get_database_url()
-    engine = create_engine(url, pool_pre_ping=True)
     try:
         with engine.connect() as conn:
             conn.execute(text("SELECT 1"))
         return {"status": "ok", "database": "reachable"}
     except SQLAlchemyError as exc:
-        return {"status": "error", "database": "unreachable", "detail": str(exc.__class__.__name__)}
-    finally:
-        engine.dispose()
+        return {
+            "status": "error",
+            "database": "unreachable",
+            "detail": str(exc.__class__.__name__),
+        }
 
 
 @app.get("/api/v1")
