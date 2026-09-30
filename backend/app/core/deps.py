@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.core.security import decode_access_token
 from app.database import get_db
 from app.models import User
+from app.models.user import UserRole
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
@@ -41,3 +42,21 @@ def get_current_user(
             headers={"WWW-Authenticate": "Bearer"},
         )
     return user
+
+
+def require_asesor(current_user: User = Depends(get_current_user)) -> User:
+    if current_user.rol != UserRole.asesor:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Solo los asesores pueden realizar esta acción",
+        )
+    return current_user
+
+
+def require_cliente(current_user: User = Depends(get_current_user)) -> User:
+    if current_user.rol != UserRole.cliente:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Solo los clientes pueden realizar esta acción",
+        )
+    return current_user
