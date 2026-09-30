@@ -9,12 +9,14 @@ from app.core.deps import get_current_user
 from app.core.security import create_access_token, hash_password, verify_password
 from app.database import get_db
 from app.models import User
+from app.models.user import UserRole
 from app.schemas.auth import (
     AuthResponse,
     LoginRequest,
     RegisterRequest,
     UserPublic,
 )
+from app.services.invitations import link_pending_invitations_for_cliente
 
 router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
 
@@ -65,6 +67,10 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)) -> AuthRes
             detail="No se pudo registrar: correo o identificación duplicados",
         ) from None
     db.refresh(user)
+
+    if user.rol == UserRole.cliente:
+        link_pending_invitations_for_cliente(db, user)
+        db.refresh(user)
 
     token = create_access_token(user_id=user.id, rol=user.rol.value)
     return AuthResponse(access_token=token, user=UserPublic.model_validate(user))

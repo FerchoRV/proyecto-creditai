@@ -1,6 +1,6 @@
 # 003 · Invitación a estudio
 
-**Estado:** propuesta
+**Estado:** implementado ✅
 
 ## Qué hace
 
@@ -12,16 +12,16 @@ Sin invitación no hay proceso compartido: el registro independiente no basta pa
 
 ## Criterios de aceptación
 
-- [ ] Un asesor autenticado puede crear una **invitación** indicando al cliente por **correo** y/o **tipo+número de identificación**.
-- [ ] Al invitar, se crea una **solicitud** en estado inicial `recibido` vinculada al asesor.
-- [ ] Si el cliente **ya está registrado**, la solicitud queda vinculada de inmediato a ese cliente.
-- [ ] Si el cliente **aún no existe**, la invitación queda **pendiente** y se vincula automáticamente cuando el cliente se registre con el mismo correo o la misma identificación.
-- [ ] Un mismo par asesor–cliente puede tener **varias solicitudes** (estudios distintos) a lo largo del tiempo.
-- [ ] Un cliente puede tener solicitudes con **distintos asesores**.
-- [ ] El asesor puede **listar** sus invitaciones/solicitudes y ver el estado de vinculación (pendiente vs activa).
-- [ ] El cliente autenticado puede **listar** las solicitudes/estudios en los que participa.
-- [ ] Un cliente **no** puede crear invitaciones ni solicitudes.
-- [ ] No se crean vínculos duplicados espurios: cada invitación genera su propia solicitud; no se fusionan estudios distintos.
+- [x] Un asesor autenticado puede crear una **invitación** indicando al cliente por **correo** y/o **tipo+número de identificación**.
+- [x] Al invitar, se crea una **solicitud** en estado inicial `recibido` vinculada al asesor.
+- [x] Si el cliente **ya está registrado**, la solicitud queda vinculada de inmediato a ese cliente.
+- [x] Si el cliente **aún no existe**, la invitación queda **pendiente** y se vincula automáticamente cuando el cliente se registre con el mismo correo o la misma identificación.
+- [x] Un mismo par asesor–cliente puede tener **varias solicitudes** (estudios distintos) a lo largo del tiempo.
+- [x] Un cliente puede tener solicitudes con **distintos asesores**.
+- [x] El asesor puede **listar** sus invitaciones/solicitudes y ver el estado de vinculación (pendiente vs activa).
+- [x] El cliente autenticado puede **listar** las solicitudes/estudios en los que participa.
+- [x] Un cliente **no** puede crear invitaciones ni solicitudes.
+- [x] No se crean vínculos duplicados espurios: cada invitación genera su propia solicitud; no se fusionan estudios distintos.
 
 ## Fuera de alcance
 

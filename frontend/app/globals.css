@@ -277,6 +277,57 @@ button.btn-primary:hover {
   background: color-mix(in srgb, var(--danger) 15%, transparent);
 }
 
+.form-page.wide {
+  max-width: 44rem;
+}
+
+.process-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.process-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-accent) 85%, black);
+}
+
+.process-list strong {
+  display: block;
+}
+
+.process-list .muted {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.pill {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+.pill.pendiente {
+  color: #e0b35a;
+}
+
+.pill.vinculada {
+  color: var(--ok);
+}
+
 .form-footer {
   margin-top: 1.5rem;
   color: var(--muted);
