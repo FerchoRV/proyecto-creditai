@@ -1,6 +1,6 @@
 # 001 · Autenticación
 
-**Estado:** propuesta
+**Estado:** implementado ✅
 
 ## Qué hace
 
@@ -12,14 +12,14 @@ Sin autenticación no hay identidad ni permisos. Es la base del resto de feature
 
 ## Criterios de aceptación
 
-- [ ] Un usuario puede registrarse como **asesor** con: nombre, tipo de identificación, número de identificación, correo y contraseña.
-- [ ] Un usuario puede registrarse como **cliente** con los campos del asesor más: salario, tipo de préstamo (`hipotecario` | `libranza` | `libre_inversion`) y monto del préstamo.
-- [ ] El correo es único; la combinación tipo+número de identificación es única.
-- [ ] La contraseña se almacena hasheada (nunca en texto plano).
-- [ ] Un usuario registrado puede iniciar sesión con correo y contraseña y recibe un token JWT válido.
-- [ ] Credenciales inválidas o usuario inexistente responden con error claro (sin filtrar datos sensibles).
-- [ ] Un endpoint (o equivalente) permite obtener el perfil del usuario autenticado a partir del token.
-- [ ] Rutas protegidas del API rechazan peticiones sin token válido.
+- [x] Un usuario puede registrarse como **asesor** con: nombre, tipo de identificación, número de identificación, correo y contraseña.
+- [x] Un usuario puede registrarse como **cliente** con los campos del asesor más: salario, tipo de préstamo (`hipotecario` | `libranza` | `libre_inversion`) y monto del préstamo.
+- [x] El correo es único; la combinación tipo+número de identificación es única.
+- [x] La contraseña se almacena hasheada (nunca en texto plano).
+- [x] Un usuario registrado puede iniciar sesión con correo y contraseña y recibe un token JWT válido.
+- [x] Credenciales inválidas o usuario inexistente responden con error claro (sin filtrar datos sensibles).
+- [x] Un endpoint (o equivalente) permite obtener el perfil del usuario autenticado a partir del token.
+- [x] Rutas protegidas del API rechazan peticiones sin token válido.
 
 ## Fuera de alcance
 
