@@ -8,7 +8,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.database import engine
-from app.routers import auth
+from app.routers import auth, users
 
 app = FastAPI(title="CreditAI API", version="0.1.0")
 
@@ -21,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
+app.include_router(users.router)
 
 
 @app.get("/health")
